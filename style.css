@@ -12,13 +12,24 @@ body, html {
 
 .headerSection {
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 5px;
+  text-align: left;
+  margin-left: 50px;
 }
 
 .heading {
-  font-size: 40px;
+  font-size: 30px;
   margin-top: 5px;
   margin-bottom: 5px;
+  margin-left: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#logo {
+  display: inline-block;
+  vertical-align: middle;
+  height: 80px;
 }
 
 .takePhoto {
@@ -45,11 +56,12 @@ body, html {
   border-radius: 10px;
   font-size: 30px;
   font-family: 'Arial';
+  cursor: pointer;
 }
 
 .rgb {
-  padding-top: 15px;
-  font-size: 20px;
+  padding-top: 10px;
+  font-size: 18px;
   width: 600px;
   position: relative;
   margin: 0 auto;
@@ -85,4 +97,44 @@ body, html {
 
 .blue > label, .green > label, .red > label {
   margin-left: 10px;
+}
+
+.player {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width:200px;
+    border-radius: 5px;
+}
+
+.photo {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  height: 400px;
+  display: inline-block;
+}
+
+.strip {
+}
+
+.strip img {
+  width: 100px;
+  overflow-x: scroll;
+  padding: 1rem 1rem 2.5rem 1rem;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  background: white;
+}
+
+a {
+  font-size: 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+a:hover {
+  cursor: pointer;
+  background-color: yellow;
+  text-decoration: underline;
+  display: inline-block;
 }
