@@ -16,27 +16,15 @@
   </div>
 
   <div class="photoBooth">
-    <div class="takePhoto">Take Photo</div>
-      <div class="rgb">
-     <div class="red">
-       <label for="rmin">Red Min:</label>
-       <input type="range" min=0 max=255 name="rmin">
-       <label for="rmax">Red Max:</label>
-       <input type="range" min=0 max=255 name="rmax">
-     </div>
-     <div class="green">
-       <label for="gmin">Green Min:</label>
-       <input type="range" min=0 max=255 name="gmin">
-       <label for="gmax">Green Max:</label>
-       <input type="range" min=0 max=255 name="gmax">
-     </div>
-     <div class="blue">
-       <label for="bmin">Blue Min:</label>
-       <input type="range" min=0 max=255 name="bmin">
-       <label for="bmax">Blue Max:</label>
-       <input type="range" min=0 max=255 name="bmax">
-     </div>
-   </div>
+    <div class="rgb">
+      <div class="noFilter">Normal</div>
+      <div class="rainbow">Rainbow</div>
+      <div class="red">Red</div>
+      <div class="green">Green</div>
+      <div class="blue">Blue</div>
+    </div>
+    <div class="addGhostSelector">Add Ghost? <span class="addGhost">Yes </span><span class="removeGhost">No</span></div>
+   <div class="takePhoto">Take Photo</div>
  </div>
 
    <canvas class="photo"></canvas>
