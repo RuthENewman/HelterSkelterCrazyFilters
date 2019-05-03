@@ -28,7 +28,6 @@ function getVideo() {
 }
 
 function paintToCanvasGreen() {
-  getVideo()
   const width = video.videoWidth;
   const height = video.videoHeight;
   canvas.width = width;
@@ -40,11 +39,11 @@ function paintToCanvasGreen() {
 
     pixels = greenEffect(pixels);
     context.putImageData(pixels, 0, 0);
-  }, 24);
+  }, 16);
 }
 
 function paintToCanvasRed() {
-  getVideo()
+
   const width = video.videoWidth;
   const height = video.videoHeight;
   canvas.width = width;
@@ -59,8 +58,24 @@ function paintToCanvasRed() {
   }, 24);
 }
 
+function paintToCanvas() {
+  context.resetTransform();
+  const width = video.videoWidth;
+  const height = video.videoHeight;
+  canvas.width = width;
+  canvas.height = height;
+
+  return setInterval(() => {
+    context.drawImage(video, 0, 0, width, height);
+    let pixels = context.getImageData(0,0, width, height)
+
+    context.putImageData(pixels, 0, 0);
+  }, 16);
+}
+
 function paintToCanvasBlue() {
-  getVideo()
+
+  context.resetTransform();
   const width = video.videoWidth;
   const height = video.videoHeight;
   canvas.width = width;
@@ -72,39 +87,24 @@ function paintToCanvasBlue() {
 
     pixels = blueEffect(pixels);
     context.putImageData(pixels, 0, 0);
-  }, 24);
+  }, 16);
 }
-
-function paintToCanvasNormal() {
-  getVideo()
-  const width = video.videoWidth;
-  const height = video.videoHeight;
-  canvas.width = width;
-  canvas.height = height;
-
-  return setInterval(() => {
-    context.drawImage(video, 0, 0, width, height);
-    let pixels = context.getImageData(0,0, width, height)
-
-    context.putImageData(pixels, 0, 0);
-  }, 24);
-}
-
 
 function paintToCanvasRainbow() {
-  getVideo()
+  context.resetTransform();
   const width = video.videoWidth;
   const height = video.videoHeight;
   canvas.width = width;
   canvas.height = height;
 
   return setInterval(() => {
+
     context.drawImage(video, 0, 0, width, height);
     let pixels = context.getImageData(0,0, width, height)
 
     pixels = rgbSplit(pixels);
     context.putImageData(pixels, 0, 0);
-  }, 24);
+  }, 16);
 }
 
 function redEffect(pixels) {
@@ -143,8 +143,6 @@ function rgbSplit(pixels) {
   return pixels;
 }
 
-getVideo();
-
 function takePhoto() {
   snap.currentTime = 0;
   snap.play();
@@ -158,8 +156,6 @@ function takePhoto() {
 }
 
 takePhotoButton.addEventListener('click', takePhoto);
-
-// video.addEventListener('canplay', paintToCanvas)
 
 addGhostButton.addEventListener('click', event => {
   addGhostStatus = true;
@@ -195,12 +191,16 @@ blueEffectButton.addEventListener('click', event => {
   noFilterStatus = false;
 })
 
+getVideo();
+
+video.addEventListener('canplay', paintToCanvas);
+
 redEffectButton.addEventListener('click', paintToCanvasRed)
 
 greenEffectButton.addEventListener('click', paintToCanvasGreen)
 
 blueEffectButton.addEventListener('click', paintToCanvasBlue)
 
-noFilterButton.addEventListener('click', paintToCanvasNormal)
+noFilterButton.addEventListener('click', paintToCanvas);
 
 rainbowEffectButton.addEventListener('click', paintToCanvasRainbow)
