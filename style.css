@@ -44,6 +44,7 @@ body, html {
   font-size: 25px;
   font-family: 'Arial';
   margin-top: 10px;
+  display: 'none';
 }
 
 .addGhostSelector {

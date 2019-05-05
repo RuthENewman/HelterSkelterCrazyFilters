@@ -153,7 +153,8 @@ function focusCanvas(i){
 	});
 
 	// canvases[i].style.width = '100%';
-	canvases[i].style.height = 400;
+  takePhotoButton.style.display = 'block';
+	canvases[i].style.height = '60%';
 
 	focusedCanvas = i;
 }
