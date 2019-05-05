@@ -32,7 +32,7 @@ body, html {
   height: 80px;
 }
 
-.takePhoto {
+.takePhoto, .chooseAgain {
   background-color: white;
   color:  #f09819;
   border: 5px white;
@@ -82,7 +82,7 @@ body, html {
   background-color: crimson;
 }
 
-.takePhoto:hover {
+.takePhoto:hover, .chooseAgain:hover {
   background-color: #f09819;
   color: yellow;
   border: 5px solid yellow;
