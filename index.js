@@ -1,5 +1,10 @@
-const canvas = document.querySelector('.photo');
-const context = canvas.getContext('2d');
+// let canvas = document.getElementById('photoNormal');
+// let context = canvas.getContext('2d');
+let canvas;
+const canvasDiv = document.querySelector('.canvasDiv');
+
+const canvases = [...document.querySelectorAll('.photo')];
+const contexts = canvases.map(canvas => canvas.getContext('2d'));
 
 const video = document.querySelector('.player');
 const strip = document.querySelector('.strip');
@@ -16,6 +21,23 @@ const rainbowEffectButton = document.querySelector('.rainbow');
 const greenEffectButton = document.querySelector('.green');
 const noFilterButton = document.querySelector('.noFilter');
 
+const canvasDivNormal = document.getElementById('canvasDivNormal');
+const canvasDivs = document.querySelectorAll('.canvasDiv');
+const canvasDivsArray = [...canvasDivs];
+const canvasRedDiv = document.getElementById('canvasDivRed');
+const canvasGreenDiv = document.getElementById('canvasDivGreen');
+const canvasBlueDiv = document.getElementById('canvasDivBlue');
+const canvasRainbowDiv = document.getElementById('canvasDivRainbow');
+
+let firstInterval;
+let focusedCanvas = 'all';
+
+function createCanvas() {
+  document.createElement("CANVAS");
+  canvas.classList = 'photo';
+  canvasDiv.appendChild(canvas);
+}
+
 function getVideo() {
   navigator.mediaDevices.getUserMedia({video: true, audio: false})
     .then(localMediaStream => {
@@ -25,86 +47,65 @@ function getVideo() {
     .catch(error => {
       console.error('Access denied to webcam', error);
     })
+
 }
 
-function paintToCanvasGreen() {
+function paintSingleCanvas(i, width, height){
+
+	if(focusedCanvas != 'all' && focusedCanvas != i){
+		return;
+	}
+
+	contexts[i].drawImage(video, 0, 0, width, height)
+
+	let pixels = contexts[i].getImageData(0, 0, width, height);
+
+	if(i == 0){
+		// no change in pixels
+	}else if(i == 1){
+		pixels = redEffect(pixels);
+	}else if(i == 2){
+		pixels = greenEffect(pixels);
+	}else if(i == 3){
+		pixels = blueEffect(pixels);
+	}
+  else if(i == 4){
+    pixels = rgbSplit(pixels);
+  }
+
+	contexts[i].putImageData(pixels, 0, 0);
+}
+
+function removeRedFilter() {
   const width = video.videoWidth;
   const height = video.videoHeight;
   canvas.width = width;
   canvas.height = height;
 
-  return setInterval(() => {
+  return redFilter = setInterval(() => {
     context.drawImage(video, 0, 0, width, height);
     let pixels = context.getImageData(0,0, width, height)
 
-    pixels = greenEffect(pixels);
-    context.putImageData(pixels, 0, 0);
-  }, 16);
-}
-
-function paintToCanvasRed() {
-
-  const width = video.videoWidth;
-  const height = video.videoHeight;
-  canvas.width = width;
-  canvas.height = height;
-
-  return setInterval(() => {
-    context.drawImage(video, 0, 0, width, height);
-    let pixels = context.getImageData(0,0, width, height)
-
-    pixels = redEffect(pixels);
+    pixels = redEffectReverse(pixels);
     context.putImageData(pixels, 0, 0);
   }, 24);
 }
 
-function paintToCanvas() {
-  context.resetTransform();
-  const width = video.videoWidth;
-  const height = video.videoHeight;
-  canvas.width = width;
-  canvas.height = height;
+function paintToCanvas(){
+	const width = video.videoWidth;
+	const height = video.videoHeight;
 
-  return setInterval(() => {
-    context.drawImage(video, 0, 0, width, height);
-    let pixels = context.getImageData(0,0, width, height)
+	console.log(height, width);
 
-    context.putImageData(pixels, 0, 0);
-  }, 16);
-}
+	canvases.forEach((canvas, i) => {
 
-function paintToCanvasBlue() {
+		canvas.width = width;
+		canvas.height = height;
 
-  context.resetTransform();
-  const width = video.videoWidth;
-  const height = video.videoHeight;
-  canvas.width = width;
-  canvas.height = height;
-
-  return setInterval(() => {
-    context.drawImage(video, 0, 0, width, height);
-    let pixels = context.getImageData(0,0, width, height)
-
-    pixels = blueEffect(pixels);
-    context.putImageData(pixels, 0, 0);
-  }, 16);
-}
-
-function paintToCanvasRainbow() {
-  context.resetTransform();
-  const width = video.videoWidth;
-  const height = video.videoHeight;
-  canvas.width = width;
-  canvas.height = height;
-
-  return setInterval(() => {
-
-    context.drawImage(video, 0, 0, width, height);
-    let pixels = context.getImageData(0,0, width, height)
-
-    pixels = rgbSplit(pixels);
-    context.putImageData(pixels, 0, 0);
-  }, 16);
+		return setInterval(() => {
+			paintSingleCanvas(i, width, height);
+		}, 16);
+	});
 }
 
 function redEffect(pixels) {
@@ -143,64 +144,63 @@ function rgbSplit(pixels) {
   return pixels;
 }
 
+function focusCanvas(i){
+	canvases.forEach((canvas, idx) => {
+		if(idx != i){
+
+			canvas.style.display = 'none';
+		}
+	});
+
+	// canvases[i].style.width = '100%';
+	canvases[i].style.height = 400;
+
+	focusedCanvas = i;
+}
+
 function takePhoto() {
   snap.currentTime = 0;
   snap.play();
 
-  const data = canvas.toDataURL('image/jpeg');
-  const link = document.createElement('a');
-  link.href = data;
-  link.setAttribute('download', 'beauty');
-  link.innerHTML = `<img src="${data}" alt="Beauty"/>`;
-  strip.insertBefore(link, strip.firstChild);
+  canvases.forEach((canvas, idx) => {
+		if(idx == focusedCanvas){
+      const data = canvas.toDataURL('image/jpeg');
+      const link = document.createElement('a');
+      link.href = data;
+      link.setAttribute('download', 'beauty');
+      link.innerHTML = `<img src="${data}" alt="Beauty"/>`;
+      strip.insertBefore(link, strip.firstChild);
+		}
+	});
 }
-
-takePhotoButton.addEventListener('click', takePhoto);
-
-addGhostButton.addEventListener('click', event => {
-  addGhostStatus = true;
-  context.globalAlpha = 0.4;
-})
-
-removeGhostButton.addEventListener('click', event => {
-  addGhostStatus = false;
-  context.globalAlpha = 0;
-})
-
-rainbowEffectButton.addEventListener('click', event => {
-  redEffectStatus = false;
-  greenEffectStatus = false;
-  blueEffectStatus = false;
-  rainbowEffectStatus = true;
-  noFilterStatus = false;
-})
-
-greenEffectButton.addEventListener('click', event => {
-  redEffectStatus = false;
-  greenEffectStatus = true;
-  blueEffectStatus = false;
-  rainbowEffectStatus = false;
-  noFilterStatus = false;
-})
-
-blueEffectButton.addEventListener('click', event => {
-  redEffectStatus = false;
-  greenEffectStatus = false;
-  blueEffectStatus = true;
-  rainbowEffectStatus = false;
-  noFilterStatus = false;
-})
 
 getVideo();
 
+takePhotoButton.addEventListener('click', takePhoto);
+//
 video.addEventListener('canplay', paintToCanvas);
 
-redEffectButton.addEventListener('click', paintToCanvasRed)
+redEffectButton.addEventListener('click', () => {
+    paintToCanvas();
+    focusCanvas(1);
+})
 
-greenEffectButton.addEventListener('click', paintToCanvasGreen)
+greenEffectButton.addEventListener('click', () => {
+  paintToCanvas();
+  focusCanvas(2);
+})
 
-blueEffectButton.addEventListener('click', paintToCanvasBlue)
+blueEffectButton.addEventListener('click', () => {
+  paintToCanvas();
+  focusCanvas(3);
+})
 
-noFilterButton.addEventListener('click', paintToCanvas);
+noFilterButton.addEventListener('click', () => {
+  paintToCanvas();
+  focusCanvas(0);
+});
 
-rainbowEffectButton.addEventListener('click', paintToCanvasRainbow)
+rainbowEffectButton.addEventListener('click', () => {
+  paintToCanvas();
+  focusCanvas(4);
+})
