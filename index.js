@@ -147,7 +147,7 @@ function focusCanvas(i){
   rgbButtonsDiv.style.display = 'none';
   chooseAgainButton.style.display = 'block';
   takePhotoButton.style.display = 'block';
-	canvases[i].style.height = '60%';
+	canvases[i].style.height = '50%';
 
 	focusedCanvas = i;
 }
@@ -200,5 +200,6 @@ rainbowEffectButton.addEventListener('click', () => {
 })
 
 chooseAgainButton.addEventListener('click', () => {
-  window.load();
+  window.onload = function () {window.location.reload()}
+  window.onload();
 })
