@@ -1,5 +1,3 @@
-// let canvas = document.getElementById('photoNormal');
-// let context = canvas.getContext('2d');
 let canvas;
 const canvasDiv = document.querySelector('.canvasDiv');
 
@@ -21,15 +19,9 @@ const rainbowEffectButton = document.querySelector('.rainbow');
 const greenEffectButton = document.querySelector('.green');
 const noFilterButton = document.querySelector('.noFilter');
 
-const canvasDivNormal = document.getElementById('canvasDivNormal');
-const canvasDivs = document.querySelectorAll('.canvasDiv');
-const canvasDivsArray = [...canvasDivs];
-const canvasRedDiv = document.getElementById('canvasDivRed');
-const canvasGreenDiv = document.getElementById('canvasDivGreen');
-const canvasBlueDiv = document.getElementById('canvasDivBlue');
-const canvasRainbowDiv = document.getElementById('canvasDivRainbow');
+const rgbButtonsDiv = document.querySelector('.rgb');
+const chooseAgainButton = document.querySelector('.chooseAgain');
 
-let firstInterval;
 let focusedCanvas = 'all';
 
 function createCanvas() {
@@ -152,9 +144,10 @@ function focusCanvas(i){
 		}
 	});
 
-	// canvases[i].style.width = '100%';
+  rgbButtonsDiv.style.display = 'none';
+  chooseAgainButton.style.display = 'block';
   takePhotoButton.style.display = 'block';
-	canvases[i].style.height = '60%';
+	canvases[i].style.height = '50%';
 
 	focusedCanvas = i;
 }
@@ -204,4 +197,9 @@ noFilterButton.addEventListener('click', () => {
 rainbowEffectButton.addEventListener('click', () => {
   paintToCanvas();
   focusCanvas(4);
+})
+
+chooseAgainButton.addEventListener('click', () => {
+  window.onload = function () {window.location.reload()}
+  window.onload();
 })
