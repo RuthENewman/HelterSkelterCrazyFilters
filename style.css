@@ -2,7 +2,7 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100vh;
-  overflow: visible;
+  overflow: hidden;
   width: 100%;
   background-image: -webkit-linear-gradient(330deg, #ff5858 0%, #f09819 100%);
   background-image: -o-linear-gradient(330deg, #ff5858 0%, #f09819 100%);
@@ -10,6 +10,11 @@ body, html {
   font-family: fantasy;
   color: yellow;
   text-align: center;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .headerSection {
