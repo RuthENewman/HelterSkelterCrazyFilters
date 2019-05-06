@@ -247,6 +247,7 @@ a:hover {
     display: inline-block;
     vertical-align: middle;
     height: 50px;
+    margin-left: 20px;
   }
   .heading {
       font-size: 20px;
@@ -276,8 +277,8 @@ a:hover {
 .noFilter, .rainbow, .red, .green {
   margin-right: 5px;
 }
+canvas {
+  height: 200px;
+}
 
-  .photo {
-    width: 100px;
-  }
 }
