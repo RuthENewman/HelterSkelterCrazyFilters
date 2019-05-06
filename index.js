@@ -147,7 +147,7 @@ function focusCanvas(i){
   rgbButtonsDiv.style.display = 'none';
   chooseAgainButton.style.display = 'block';
   takePhotoButton.style.display = 'block';
-	canvases[i].style.height = '500px';
+	canvases[i].style.height = '250px';
 
 	focusedCanvas = i;
 }
