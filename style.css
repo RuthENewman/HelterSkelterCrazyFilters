@@ -1,6 +1,8 @@
 body, html {
+  margin: 0;
+  padding: 0;
   height: 100vh;
-  overflow: visible;
+  overflow: hidden;
   width: 100%;
   background-image: -webkit-linear-gradient(330deg, #ff5858 0%, #f09819 100%);
   background-image: -o-linear-gradient(330deg, #ff5858 0%, #f09819 100%);
@@ -8,6 +10,11 @@ body, html {
   font-family: fantasy;
   color: yellow;
   text-align: center;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .headerSection {
@@ -229,4 +236,49 @@ a:hover {
   background-color: yellow;
   text-decoration: underline;
   display: inline-block;
+}
+
+@media only screen and (max-device-width: 480px) {
+  .headerSection {
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+  #logo {
+    display: inline-block;
+    vertical-align: middle;
+    height: 50px;
+    margin-left: 20px;
+  }
+  .heading {
+      font-size: 20px;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      margin-left: 10px;
+      display: inline-block;
+      vertical-align: middle;
+  }
+  .player {
+    display: none;
+  }
+  .rgb {
+    padding-top: 10px;
+    font-size: 16px;
+    width: 300px;
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.noFilter {
+  width: 100px;
+}
+
+.noFilter, .rainbow, .red, .green {
+  margin-right: 5px;
+}
+canvas {
+  height: 200px;
+}
+
 }
