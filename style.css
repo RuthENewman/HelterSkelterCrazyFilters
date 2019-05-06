@@ -12,10 +12,6 @@ body, html {
   text-align: center;
 }
 
-body {
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
 
 .headerSection {
   font-weight: bold;
@@ -239,6 +235,10 @@ a:hover {
 }
 
 @media only screen and (max-device-width: 480px) {
+  body {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
   .headerSection {
     margin: 0 auto;
     margin-top: 10px;
