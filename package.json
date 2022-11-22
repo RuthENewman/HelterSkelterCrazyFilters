@@ -9,7 +9,7 @@
   "author": "Ruth Newman",
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "^2.12.5 <2.23.2"
+    "browser-sync": "^2.12.5 <2.27.11"
   },
   "dependencies": {
     "cryptiles": "^4.1.3",
